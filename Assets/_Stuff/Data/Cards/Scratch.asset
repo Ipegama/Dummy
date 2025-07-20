@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f8eea426f332848bda7a62d7f05019, type: 3}
+  m_Name: Scratch
+  m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 1083344922333567218, guid: 3ffcb886a96314f4d9559a2a923e1614, type: 3}
+  cardName: Scratch
+  cardDescription: Deal 1 damage.
+  cardIcon: {fileID: 21300000, guid: 72124a67bbace794fa38534a24d23cee, type: 3}
+  effects:
+  - {fileID: 11400000, guid: da182646092054649978aa4df5a6e240, type: 2}
