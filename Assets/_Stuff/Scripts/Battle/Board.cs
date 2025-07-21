@@ -13,32 +13,51 @@ public class Board : MonoBehaviour
 
     private Coroutine fightCoroutine;
 
-    public void CreateSlots(List<CardData> enemyCards)
+    public void CreateSlots(List<CardData> playerCards, List<CardData> enemyCards)
     {
         DestroySlots();
 
-        int amount = enemyCards.Count * 2;
+        int maxCount = Mathf.Max(playerCards.Count, enemyCards.Count);
+        int totalSlots = maxCount * 2;
 
-        for (int i = 0; i < amount; i++)
+        for (int i = 0; i < totalSlots; i++)
         {
-            bool isEnemy = (i % 2 == 0);
+            bool isEnemy = (i % 2 == 0); 
             BoardSlot slot = slotsFactory.CreateSlot(this, transform, isEnemy);
-
             slots.Add(slot);
+
+            int cardIndex = i / 2;
 
             if (isEnemy)
             {
-                int cardIndex = i / 2;
-                CardData data = enemyCards[cardIndex];
-                if (data != null)
+                if (cardIndex < enemyCards.Count)
                 {
-                    Card card = data.CreateCard();
-                    slot.AddCard(card);
-                    card.transform.SetParent(slot.transform, false);
+                    CardData data = enemyCards[cardIndex];
+                    if (data != null)
+                    {
+                        Card card = data.CreateCard();
+                        slot.AddCard(card);
+                        card.transform.SetParent(slot.transform, false);
+                    }
+                }
+            }
+            else 
+            {
+                if (cardIndex < playerCards.Count)
+                {
+                    CardData data = playerCards[cardIndex];
+                    if (data != null)
+                    {
+                        Card card = data.CreateCard();
+                        slot.AddCard(card);
+                        card.transform.SetParent(slot.transform, false);
+                    }
                 }
             }
         }
     }
+
+
 
     public void StartFight()
     {

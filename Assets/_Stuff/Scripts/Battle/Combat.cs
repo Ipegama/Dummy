@@ -7,37 +7,36 @@ public class Combat : MonoBehaviour
     [SerializeField] private Board board;
     [SerializeField] private Player player;
     [SerializeField] private Enemy enemy;
-    [SerializeField] private PlayerData playerData;
+    [SerializeField] private List<PlayerData> playerDatas;
     [SerializeField] private List<EnemyData> enemyDatas;
-
-    private bool[] defeatedEnemies;
 
     private void Start()
     {
         ResetRun();
     }
 
-    public void LoadEnemy(int index)
+    public void LoadFight(int enemyIndex, int playerIndex)
     {
         board.CloseFight();
-        board.CreateSlots(enemyDatas[index].CardDatas);
-        enemy.Setup(enemyDatas[index]);
-    }
 
+        PlayerData playerData = playerDatas[playerIndex];
+        EnemyData enemyData = enemyDatas[enemyIndex];
+
+        player.Setup(playerData);
+        enemy.Setup(enemyData);
+
+        board.CreateSlots(playerData.CardDatas, enemyData.CardDatas);
+    }
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Alpha1)) LoadEnemy(0);
-        if (Input.GetKeyUp(KeyCode.Alpha2)) LoadEnemy(1);
+        if (Input.GetKeyUp(KeyCode.Alpha1)) LoadFight(0, 0);
+        if (Input.GetKeyUp(KeyCode.Alpha2)) LoadFight(1, 0);
         if (Input.GetKeyUp(KeyCode.R)) ResetRun();
     }
 
     private void ResetRun()
     {
-        defeatedEnemies = new bool[enemyDatas.Count];
-        player.Setup(playerData);
-        LoadEnemy(0);
+        LoadFight(0, 0);
     }
-
-
 }
 
