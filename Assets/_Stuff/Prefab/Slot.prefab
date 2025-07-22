@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6264385270730023961}
   - component: {fileID: 5534986560475098743}
   - component: {fileID: 6868984003586628421}
-  - component: {fileID: 176672430584928577}
+  - component: {fileID: -7251054837638122779}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &176672430584928577
+--- !u!114 &-7251054837638122779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,6 +110,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8405568183401078039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d765543abd6d2984d8da89027ff54c44, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e6d3af0b9284314f9ef30c06ad313e8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Slot

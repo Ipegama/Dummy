@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+public class Board : Singleton<Board>
 {
-    [SerializeField] private List<BoardSlot> slots;
+    [SerializeField] private List<Slot> slots;
 
     [SerializeField] private Player player;
     [SerializeField] private Enemy enemy;
@@ -12,6 +12,7 @@ public class Board : MonoBehaviour
     [SerializeField] private SlotFactory slotsFactory;
 
     private Coroutine fightCoroutine;
+
 
     public void CreateSlots(List<CardData> playerCards, List<CardData> enemyCards)
     {
@@ -22,8 +23,8 @@ public class Board : MonoBehaviour
 
         for (int i = 0; i < totalSlots; i++)
         {
-            bool isEnemy = (i % 2 == 0); 
-            BoardSlot slot = slotsFactory.CreateSlot(this, transform, isEnemy);
+            bool isEnemy = (i % 2 == 0);
+            Slot slot = slotsFactory.CreateSlot(this, transform, isEnemy);
             slots.Add(slot);
 
             int cardIndex = i / 2;
@@ -61,8 +62,6 @@ public class Board : MonoBehaviour
 
     public void StartFight()
     {
-        LockCards();
-        LockSlots();
         fightCoroutine = StartCoroutine(FightSequence());   
     }
 
@@ -73,8 +72,6 @@ public class Board : MonoBehaviour
             StopCoroutine(fightCoroutine);
             fightCoroutine = null;
         }
-
-        ReturnCards();
         DestroySlots();
     }
     public void FinalizeAndCloseFight()
@@ -103,44 +100,6 @@ public class Board : MonoBehaviour
     private (Combatant owner, Combatant rival) GetCombatantsForSlot(int index)
     {
         return (index % 2 == 0) ? (enemy, player) : (player, enemy);
-    }
-    private void LockCards()
-    {
-        foreach (BoardSlot slot in slots)
-        {
-            if (slot.Card != null)
-            {
-                DraggableItem draggable = slot.Card.GetComponent<DraggableItem>();
-                if (draggable != null)
-                {
-                    draggable.enabled = false;
-                }
-            }
-        }
-    }
-    private void LockSlots()
-    {
-        foreach(BoardSlot slot in slots)
-        {
-            slot.LockSlot();
-        }
-    }
-    
-    private List<Card> ReturnCards()
-    {
-        List<Card> collectedCards = new List<Card>();
-
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (i % 2 != 0)
-            {
-                if (slots[i].Card != null)
-                {
-                    collectedCards.Add(slots[i].Card);
-                }
-            }
-        }
-        return collectedCards;
     }
     private void DestroySlots()
     {

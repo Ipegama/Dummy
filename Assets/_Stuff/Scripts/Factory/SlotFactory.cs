@@ -5,18 +5,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="New/Factory/Slot Factory")]
 public class SlotFactory : ScriptableObject
 {
-    [SerializeField] private BoardSlot boardSlotPrefab;
+    [SerializeField] private Slot slotPrefab;
 
     [SerializeField] Color playerColor, enemyColor;
 
-    public BoardSlot CreateSlot(Board board, Transform parent, bool isEnemy)
+    public Slot CreateSlot(Board board, Transform parent, bool isEnemy)
     {
-        BoardSlot boardSlot = Instantiate(boardSlotPrefab);
-        boardSlot.transform.SetParent(parent, false);
-        boardSlot.Setup(board);
-        boardSlot.BaseColor = isEnemy ? enemyColor : playerColor;
-        if (isEnemy) boardSlot.LockSlot();
+        Slot slot = Instantiate(slotPrefab);
+        slot.transform.SetParent(parent, false);
+        slot.Setup(board);
+        slot.BaseColor = isEnemy ? enemyColor : playerColor;
 
-        return boardSlot;
+        return slot;
     }
 }

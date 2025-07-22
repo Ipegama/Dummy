@@ -2,19 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : Singleton<SoundManager>
 {
-    public static SoundManager Instance;
-
     private AudioSource audioSource;
     
-    private void Awake()
+    protected override void Awake()
     {
-        if(Instance != null) Destroy(Instance.gameObject);
-        Instance = this;
-
+        base.Awake();
         audioSource = GetComponent<AudioSource>();
     }
+
     public void PlaySound(AudioClip audioClip)
     {
         audioSource.PlayOneShot(audioClip);

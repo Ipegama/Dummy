@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb80a37dc6af094f9e447e738f2a773, type: 3}
   m_Name: Slots Factory
   m_EditorClassIdentifier: 
-  boardSlotPrefab: {fileID: 176672430584928577, guid: 67623d1b0875c444688113ccfd9067e0, type: 3}
+  slotPrefab: {fileID: -7251054837638122779, guid: 67623d1b0875c444688113ccfd9067e0, type: 3}
   playerColor: {r: 0.7137255, g: 0.8862746, b: 0.6745098, a: 1}
   enemyColor: {r: 0.8862746, g: 0.6745098, b: 0.6745098, a: 1}
