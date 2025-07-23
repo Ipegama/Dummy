@@ -1,42 +1,51 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MapManager : Singleton<MapManager>
 {
     [SerializeField] private GameObject tilePrefab;
-    [SerializeField] private int gridWidth = 5;
-    [SerializeField] private int gridHeight = 5;
     [SerializeField] private Transform gridParent;
+    [SerializeField] private MapData mapData;
+    [SerializeField] private float tileSize = 100f;
 
-    private TileButton[,] tiles;
-    private const float tileSize = 100f;
+    private List<TileButton> spawnedTiles = new List<TileButton>();
 
     void Start()
     {
-        GenerateGrid();
+        GenerateMap();
     }
 
-    void GenerateGrid()
+    void GenerateMap()
     {
-        tiles = new TileButton[gridWidth, gridHeight];
-
-        for (int x = 0; x < gridWidth; x++)
+        foreach (TileData tileData in mapData.tiles)
         {
-            for (int y = 0; y < gridHeight; y++)
+            GameObject tileObj = Instantiate(tilePrefab, gridParent);
+            RectTransform rect = tileObj.GetComponent<RectTransform>();
+            rect.anchoredPosition = tileData.position * tileSize;
+
+            TileButton tile = tileObj.GetComponent<TileButton>();
+            tile.Setup(tileData);
+
+            if (tileData.isInitiallyUnlocked)
             {
-                GameObject tileObj = Instantiate(tilePrefab, gridParent);
-                RectTransform rect = tileObj.GetComponent<RectTransform>();
-                rect.sizeDelta = new Vector2(tileSize, tileSize);
-                rect.anchoredPosition = new Vector2(x * tileSize, -y * tileSize); // lewy-górny róg jako punkt startowy
-
-                TileButton tile = tileObj.GetComponent<TileButton>();
-                tile.Setup(x, y);
-                tiles[x, y] = tile;
+                tile.Unlock();
             }
-        }
 
-        int centerX = gridWidth / 2;
-        int centerY = gridHeight / 2;
-        tiles[centerX, centerY].Unlock();
+            spawnedTiles.Add(tile);
+        }
+    }
+
+    public void OnTileClicked(TileButton tile)
+    {
+        if (tile.EnemyData == null)
+        {
+            UnlockNeighbors(tile.X, tile.Y);
+        }
+        else
+        {
+            Combat.Instance.ResetBuild();
+            Combat.Instance.StartFight(tile);
+        }
     }
 
     public void UnlockNeighbors(int x, int y)
@@ -47,23 +56,15 @@ public class MapManager : Singleton<MapManager>
         TryUnlock(x, y - 1);
     }
 
-    void TryUnlock(int x, int y)
+    private void TryUnlock(int x, int y)
     {
-        if (x < 0 || x >= gridWidth || y < 0 || y >= gridHeight) return;
-
-        TileButton tile = tiles[x, y];
-        if (!tile.IsUnlocked)
+        foreach (TileButton tile in spawnedTiles)
         {
-            tile.Unlock();
+            if (tile.X == x && tile.Y == y && !tile.IsUnlocked)
+            {
+                tile.Unlock();
+                break;
+            }
         }
-    }
-
-    public void OnTileClicked(TileButton tile)
-    {
-        Debug.Log($"Clicked tile at ({tile.x}, {tile.y})");
-
-        UnlockNeighbors(tile.x, tile.y);
-
-        StateManager.Instance.ShowFight(); 
     }
 }

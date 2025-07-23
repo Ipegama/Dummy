@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Player : Combatant
 {
+    public void Initialize(int baseHp)
+    {
+        baseHealth = baseHp;
+        CurrentHealth = baseHealth;
+        UpdateUI();
+    }
+
     public void Setup(PlayerData playerData)
     {
-        baseHealth = playerData.BaseHealth;
-        CurrentHealth = baseHealth;
         UpdateUI();
     }
 }

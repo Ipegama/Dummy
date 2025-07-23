@@ -3,7 +3,8 @@ using UnityEngine.UI;
 
 public class TileButton : MonoBehaviour
 {
-    public int x, y;
+    public int X { get; private set; }
+    public int Y { get; private set; }
     public bool IsUnlocked { get; private set; }
 
     public EnemyData EnemyData { get; private set; }
@@ -15,16 +16,17 @@ public class TileButton : MonoBehaviour
         button.onClick.AddListener(OnClick);
     }
 
-    public void Setup(int x, int y)
+    public void Setup(TileData data)
     {
-        this.x = x;
-        this.y = y;
+        X = (int)data.position.x;
+        Y = (int)data.position.y;
+        EnemyData = data.enemyData;
         UpdateState();
     }
+
     private void OnClick()
     {
         if (!IsUnlocked) return;
-
         MapManager.Instance.OnTileClicked(this);
     }
 

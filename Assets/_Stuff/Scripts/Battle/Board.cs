@@ -12,9 +12,17 @@ public class Board : Singleton<Board>
     [SerializeField] private SlotFactory slotsFactory;
 
     private Coroutine fightCoroutine;
+    private PlayerData usedBuild;
+    public void SetupFight(PlayerData playerData, EnemyData enemyData)
+    {
+        usedBuild = playerData;
+        var playerCards = playerData != null ? playerData.CardDatas : new List<CardData>();
+        var enemyCards = enemyData != null ? enemyData.CardDatas : new List<CardData>();
 
+        CreateSlots(playerCards, enemyCards);
+    }
 
-    public void CreateSlots(List<CardData> playerCards, List<CardData> enemyCards)
+    private void CreateSlots(List<CardData> playerCards, List<CardData> enemyCards)
     {
         DestroySlots();
 
@@ -82,10 +90,11 @@ public class Board : Singleton<Board>
             fightCoroutine = null;
         }
         DestroySlots();
+        Combat.Instance.ResetBuild();
     }
     private IEnumerator FightSequence()
     {
-        yield return new WaitForSeconds(1f);           
+        yield return new WaitForSeconds(1f);
 
         while (!player.IsDead() && !enemy.IsDead())
         {
@@ -93,10 +102,21 @@ public class Board : Singleton<Board>
             {
                 var (owner, rival) = GetCombatantsForSlot(i);
 
-                yield return StartCoroutine(slots[i].UseSlot(owner, rival));               
+                yield return StartCoroutine(slots[i].UseSlot(owner, rival));
             }
         }
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (enemy.IsDead())
+        {
+            MapManager.Instance.UnlockNeighbors(Combat.Instance.CurrentTile.X, Combat.Instance.CurrentTile.Y);
+            HandManager.Instance.RemoveFromHand(usedBuild);
+        }
+
+        FinalizeAndCloseFight();
     }
+
     private (Combatant owner, Combatant rival) GetCombatantsForSlot(int index)
     {
         return (index % 2 == 0) ? (enemy, player) : (player, enemy);

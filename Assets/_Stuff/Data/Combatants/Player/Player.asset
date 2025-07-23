@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0017376aafa000442bddc0344c4b0402, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  PlayerName: Play3r
+  PlayerName: P1
   CardDatas:
-  - {fileID: 11400000, guid: bb05f70d83369b44db37f7d2652b83b7, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: bb05f70d83369b44db37f7d2652b83b7, type: 2}
   BaseHealth: 10

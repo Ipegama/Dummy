@@ -16,4 +16,4 @@ MonoBehaviour:
   CardDatas:
   - {fileID: 11400000, guid: bb05f70d83369b44db37f7d2652b83b7, type: 2}
   - {fileID: 0}
-  BaseHealth: 3
+  BaseHealth: 1

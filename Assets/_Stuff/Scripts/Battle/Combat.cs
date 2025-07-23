@@ -1,42 +1,80 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Combat : MonoBehaviour
+public class Combat : Singleton<Combat>
 {
-    [SerializeField] private Board board;
     [SerializeField] private Player player;
     [SerializeField] private Enemy enemy;
-    [SerializeField] private List<PlayerData> playerDatas;
-    [SerializeField] private List<EnemyData> enemyDatas;
+
+    public TileButton CurrentTile { get; private set; }
+    public PlayerData CurrentBuild { get; private set; }
+    public bool IsInFight { get; private set; } = false;
 
     private void Start()
     {
-        ResetRun();
+        player.Initialize(10);
     }
 
-    public void LoadFight(int enemyIndex, int playerIndex)
+    public void SetCurrentTile(TileButton tile)
     {
-        board.CloseFight();
+        CurrentTile = tile;
+    }
 
-        PlayerData playerData = playerDatas[playerIndex];
-        EnemyData enemyData = enemyDatas[enemyIndex];
+    public void StartFight(TileButton tile)
+    {
+        CurrentTile = tile;
+        IsInFight = true;
 
-        player.Setup(playerData);
+        EnemyData enemyData = tile.EnemyData;
+        if (enemyData == null)
+        {
+            Debug.LogWarning("No enemy on this tile! Unlocking neighbors...");
+            MapManager.Instance.UnlockNeighbors(tile.X, tile.Y);
+            IsInFight = false;
+            return;
+        }
+
+        CurrentBuild = null;  // Brak builda na starcie walki
+
+        LoadFight(enemyData);
+        StateManager.Instance.ShowFight();
+    }
+
+    public void ChangeBuild(PlayerData newBuild)
+    {
+        if (!IsInFight)
+        {
+            Debug.LogWarning("Cannot change build, not in fight.");
+            return;
+        }
+
+        CurrentBuild = newBuild;
+        player.Setup(newBuild);
+
+        // Prze³aduj sloty z nowym buildem i tym samym enemy
+        Board.Instance.SetupFight(newBuild, CurrentTile.EnemyData);
+
+        Debug.Log($"Player build changed to {newBuild.name}");
+    }
+
+    public void LoadFight(EnemyData enemyData)
+    {
+        Board.Instance.CloseFight();
+
         enemy.Setup(enemyData);
-
-        board.CreateSlots(playerData.CardDatas, enemyData.CardDatas);
-    }
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Alpha1)) LoadFight(0, 0);
-        if (Input.GetKeyUp(KeyCode.Alpha2)) LoadFight(1, 0);
-        if (Input.GetKeyUp(KeyCode.R)) ResetRun();
+        Board.Instance.SetupFight(CurrentBuild, enemyData);
     }
 
-    private void ResetRun()
+    public void EndFight()
     {
-        LoadFight(0, 0);
+        IsInFight = false;
+        CurrentBuild = null;
+        CurrentTile = null;
+
+        Board.Instance.CloseFight();
+    }
+
+    public void ResetBuild()
+    {
+        CurrentBuild = null;
     }
 }
-
