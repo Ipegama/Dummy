@@ -7,4 +7,5 @@ public class PlayerData : ScriptableObject
     public string PlayerName;
     public List<CardData> CardDatas;
     public int BaseHealth;
+    public Sprite Sprite;
 }

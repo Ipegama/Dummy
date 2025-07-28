@@ -50,10 +50,22 @@ public class MapManager : Singleton<MapManager>
 
     public void UnlockNeighbors(int x, int y)
     {
+        RemoveEnemy(x,y);
         TryUnlock(x + 1, y);
         TryUnlock(x - 1, y);
         TryUnlock(x, y + 1);
         TryUnlock(x, y - 1);
+    }
+
+    private void RemoveEnemy(int x, int y)
+    {
+        foreach (TileButton tile in spawnedTiles)
+        {
+            if (tile.X == x && tile.Y == y)
+            {
+                tile.RemoveEnemy();
+            }
+        }
     }
 
     private void TryUnlock(int x, int y)

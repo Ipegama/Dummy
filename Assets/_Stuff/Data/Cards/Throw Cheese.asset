@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 1083344922333567218, guid: 3ffcb886a96314f4d9559a2a923e1614, type: 3}
   cardName: Throw Cheese
-  cardDescription: Deal 1 cheese damage.
+  cardDescription: Deal damage equal to armor.
   cardIcon: {fileID: 21300000, guid: c34cd61ed96ff9a40a54e159467c5155, type: 3}
   effects:
-  - {fileID: 11400000, guid: da182646092054649978aa4df5a6e240, type: 2}
+  - {fileID: 11400000, guid: 801f017af16a1214da073b38738848f9, type: 2}

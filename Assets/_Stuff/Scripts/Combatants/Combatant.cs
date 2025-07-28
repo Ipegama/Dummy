@@ -3,20 +3,53 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Combatant : MonoBehaviour
 {
     protected int baseHealth;
     [SerializeField] TMP_Text hpText;
+    [SerializeField] Image combatantImage;
+    [SerializeField] StatusEffectsUI statusEffectsUI;
     public virtual int CurrentHealth { get;  set; }
-        
+    public Vector3 OriginalPosition { get; set; }
+
+    protected Dictionary<StatusEffectType, int> statusEffects = new();
+
+    private void Start()
+    {
+        OriginalPosition = transform.position;
+    }
+    public void SetupUI(Sprite sprite)
+    {
+        combatantImage.sprite = sprite;
+        UpdateUI();
+    }
     public void UpdateUI()
     {
         hpText.text = $"{CurrentHealth}/{baseHealth}";
     }
     public void TakeDamage(int amount)
     {
-        CurrentHealth -= amount;
+        int remainingDamage = amount;
+        int currentArmor = GetStatusEffectStacks(StatusEffectType.ARMOR);
+        if (currentArmor > 0)
+        {
+            if(currentArmor >= amount)
+            {
+                RemoveStatusEffect(StatusEffectType.ARMOR, remainingDamage);
+                remainingDamage = 0;
+            }
+            else if (currentArmor < amount)
+            {
+                RemoveStatusEffect(StatusEffectType.ARMOR, currentArmor);
+                remainingDamage -= currentArmor;
+            }
+        }
+        if(remainingDamage > 0)
+        {
+            CurrentHealth -= remainingDamage;
+        }
         UpdateUI();
     }
     public bool IsDead()
@@ -24,19 +57,35 @@ public abstract class Combatant : MonoBehaviour
         return CurrentHealth <= 0;
     }
 
-    public Tween AttackAnimation(Combatant attacker, Combatant target)
+    public void AddStatusEffect(StatusEffectType type, int stackCount)
     {
-        RectTransform attackerTranform = attacker.GetComponent<RectTransform>();
-        RectTransform targetTransform = target.GetComponent<RectTransform>();
-        float attackDistance = 50f;  
-        float attackDuration = 0.25f;
+        if(statusEffects.ContainsKey(type))
+        {
+            statusEffects[type] += stackCount;
+        }
+        else
+        {
+            statusEffects.Add(type, stackCount);
+        }
+        statusEffectsUI.UpdateStatusEffectUI(type, GetStatusEffectStacks(type));
+    }
 
-        Vector3 direction = (targetTransform.position - attackerTranform.position).normalized;
+    public void RemoveStatusEffect(StatusEffectType type, int stackCount)
+    {
+        if (statusEffects.ContainsKey(type))
+        {
+            statusEffects[type] -= stackCount;
+            if (statusEffects[type] <= 0)
+            {
+                statusEffects.Remove(type);
+            }
+        }
+        statusEffectsUI.UpdateStatusEffectUI(type, GetStatusEffectStacks(type));
+    }
 
-        Vector3 attackPosition = attackerTranform.position + direction * attackDistance;
-
-        return attackerTranform.DOMove(attackPosition, attackDuration)
-            .SetLoops(2, LoopType.Yoyo)
-            .SetEase(Ease.InOutQuad);
+    public int GetStatusEffectStacks(StatusEffectType type)
+    {
+        if(statusEffects.ContainsKey(type)) return statusEffects[type];
+        else return 0;
     }
 }

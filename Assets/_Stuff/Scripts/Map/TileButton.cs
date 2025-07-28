@@ -10,7 +10,7 @@ public class TileButton : MonoBehaviour
     public EnemyData EnemyData { get; private set; }
 
     [SerializeField] private Button button;
-
+    [SerializeField] private Image tileVisual;
     void Awake()
     {
         button.onClick.AddListener(OnClick);
@@ -20,8 +20,23 @@ public class TileButton : MonoBehaviour
     {
         X = (int)data.position.x;
         Y = (int)data.position.y;
-        EnemyData = data.enemyData;
         UpdateState();
+
+        SetEnemy(data.enemyData);
+
+        tileVisual.gameObject.SetActive(false);     
+    }
+
+    private void SetEnemy(EnemyData enemyData)
+    {
+        if (enemyData == null)
+        {
+            EnemyData = null;
+            tileVisual.sprite = null;
+            return;
+        }
+        EnemyData = enemyData;
+        tileVisual.sprite = EnemyData.Sprite;
     }
 
     private void OnClick()
@@ -36,9 +51,20 @@ public class TileButton : MonoBehaviour
         UpdateState();
     }
 
+    public void RemoveEnemy()
+    {
+        EnemyData = null;
+        SetEnemy(null);
+        tileVisual.gameObject.SetActive(false);
+    }
+
     private void UpdateState()
     {
         button.interactable = IsUnlocked;
         GetComponent<Image>().color = IsUnlocked ? Color.white : Color.gray;
+        if (EnemyData != null)
+        {
+            tileVisual.gameObject.SetActive(true);
+        }
     }
 }

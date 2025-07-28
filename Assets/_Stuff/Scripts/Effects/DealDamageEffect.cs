@@ -13,9 +13,11 @@ public class DealDamageEffect : Effect
     public override IEnumerator Use(Combatant owner, Combatant rival)
     {
         yield return new WaitForSeconds(0.25f);
-        owner.AttackAnimation(owner, rival);
 
+        yield return VFXManager.Instance.MoveToTarget(owner, rival,1f);
+        VFXManager.Instance.StartExplosion(rival.GetComponent<RectTransform>());
         SoundManager.Instance.PlaySound(audioClip);
+        yield return VFXManager.Instance.ReturnToOrigin(owner,0.4f);
 
         yield return new WaitForSeconds(0.25f);
         rival.TakeDamage(amount);

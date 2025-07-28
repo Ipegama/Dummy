@@ -13,6 +13,7 @@ public class Player : Combatant
 
     public void Setup(PlayerData playerData)
     {
+        SetupUI(playerData.Sprite);
         UpdateUI();
     }
 }

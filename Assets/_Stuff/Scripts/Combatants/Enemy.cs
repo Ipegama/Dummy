@@ -8,6 +8,7 @@ public class Enemy : Combatant
     {
         baseHealth = enemyData.BaseHealth;
         CurrentHealth = baseHealth;
+        SetupUI(enemyData.Sprite);
         UpdateUI();
     }
 }
