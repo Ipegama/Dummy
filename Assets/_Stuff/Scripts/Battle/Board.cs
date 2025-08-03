@@ -103,6 +103,11 @@ public class Board : Singleton<Board>
                 var (owner, rival) = GetCombatantsForSlot(i);
 
                 yield return StartCoroutine(slots[i].UseSlot(owner, rival));
+
+                if (player.IsDead() || enemy.IsDead())
+                {
+                    break;
+                }
             }
         }
 
@@ -112,6 +117,7 @@ public class Board : Singleton<Board>
         {
             MapManager.Instance.UnlockNeighbors(Combat.Instance.CurrentTile.X, Combat.Instance.CurrentTile.Y);
             HandManager.Instance.RemoveFromHand(usedBuild);
+            QuestManager.Instance.EnemyDefeated(enemy.EnemyData);
         }
 
         FinalizeAndCloseFight();
