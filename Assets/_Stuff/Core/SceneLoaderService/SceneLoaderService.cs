@@ -14,7 +14,7 @@ namespace IpegamaGames
         private readonly HashSet<string> _loadingScenes = new();
 
         [Inject]
-        public SceneLoaderService(ISceneInitiatorsService sceneInitiatorsService) 
+        public SceneLoaderService(ISceneInitiatorsService sceneInitiatorsService)
         {
             _sceneInitiatorsService = sceneInitiatorsService;
         }
@@ -23,13 +23,14 @@ namespace IpegamaGames
         {
             AddOpenedScenesToLoadedHashset();
         }
+
         public async Awaitable<bool> TryLoadScene(string sceneName, CancellationTokenSource cancellationTokenSource)
         {
             var isSceneAlreadyLoaded = _loadedScenes.Contains(sceneName);
 
             if (isSceneAlreadyLoaded)
             {
-                Debug.LogError($"scene:{sceneName} is already Loaded");
+                Debug.Log($"scene:{sceneName} is already Loaded");
                 return false;
             }
 
@@ -37,23 +38,24 @@ namespace IpegamaGames
 
             if (isSceneAlreadyLoading)
             {
-                Debug.LogError($"scene:{sceneName} is already Loading");
+                Debug.Log($"scene:{sceneName} is already Loading");
                 return false;
             }
 
             await LoadScene(sceneName, cancellationTokenSource);
             return true;
         }
+
         public async Awaitable<bool> TryLoadScene<TEnterData>(SceneType sceneType, TEnterData enterData, CancellationTokenSource cancellationTokenSource) where TEnterData : class, IInitiatorEnterData
         {
             if (!await TryLoadScene(sceneType.ToString(), cancellationTokenSource))
             {
                 return false;
             }
-
             await _sceneInitiatorsService.InvokeInitiatorLoadEntryPoint(sceneType, enterData, cancellationTokenSource);
             return true;
         }
+
         public async Awaitable StartScene<TEnterData>(SceneType sceneType, TEnterData enterData, CancellationTokenSource cancellationTokenSource) where TEnterData : class, IInitiatorEnterData
         {
             await _sceneInitiatorsService.InvokeInitiatorStartEntryPoint(sceneType, enterData, cancellationTokenSource);
@@ -66,7 +68,7 @@ namespace IpegamaGames
 
             if (!isSceneAlreadyLoaded)
             {
-                Debug.LogError($"scene:{sceneName} cant be unloaded as it is not Loaded");
+                Debug.Log($"scene:{sceneName} cant be unloaded as it is not Loaded");
                 return false;
             }
 
@@ -74,7 +76,7 @@ namespace IpegamaGames
 
             if (isSceneAlreadyLoading)
             {
-                Debug.LogError($"scene:{sceneName} cant be unloaded as it during Loading");
+                Debug.Log($"scene:{sceneName} cant be unloaded as it during Loading");
                 return false;
             }
 
@@ -82,12 +84,11 @@ namespace IpegamaGames
             return true;
         }
 
-
         private void AddOpenedScenesToLoadedHashset()
         {
             var countLoaded = SceneManager.sceneCount;
 
-            for(var i =0; i < countLoaded; i++)
+            for (var i = 0; i < countLoaded; i++)
             {
                 var sceneName = SceneManager.GetSceneAt(i).name;
 
@@ -108,6 +109,7 @@ namespace IpegamaGames
             _loadedScenes.Add(sceneName);
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
         }
+
         private async Awaitable UnloadScene(SceneType sceneType, CancellationTokenSource cancellationTokenSource)
         {
             await _sceneInitiatorsService.InvokeInitiatorExitPoint(sceneType, cancellationTokenSource);

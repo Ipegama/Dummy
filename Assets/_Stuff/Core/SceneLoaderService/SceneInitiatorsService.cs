@@ -20,6 +20,7 @@ namespace IpegamaGames
 
         public async Awaitable InvokeInitiatorLoadEntryPoint(SceneType sceneType, IInitiatorEnterData enterData, CancellationTokenSource cancellationTokenSource)
         {
+            Debug.Log("1");
             await _sceneInitiators[sceneType].LoadEntryPoint(enterData, cancellationTokenSource);
         }
 

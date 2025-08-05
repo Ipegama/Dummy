@@ -7,15 +7,17 @@ namespace IpegamaGames
 {
     public class CoreInitiator : MonoBehaviour
     {
+        //private GameInputActions _gameInputActions;
         private ISceneLoaderService _sceneLoaderService;
         private IAudioService _audioService;
         private ILoadingScreenController _loadingScreenController;
         private CoreAudioClipsScriptableObject _coreAudioClipsScriptableObject;
 
         [Inject]
-        private void Setup(ISceneLoaderService sceneLoaderService, IAudioService audioService, ILoadingScreenController loadingScreenController,
+        private void Setup(/*GameInputActions gameInputActions,*/ ISceneLoaderService sceneLoaderService, IAudioService audioService, ILoadingScreenController loadingScreenController,
             CoreAudioClipsScriptableObject coreAudioClipsScriptableObject)
         {
+            //_gameInputActions = gameInputActions;
             _sceneLoaderService = sceneLoaderService;
             _audioService = audioService;
             _loadingScreenController = loadingScreenController;
@@ -30,7 +32,7 @@ namespace IpegamaGames
         private async Awaitable InitEntryPoint(CancellationTokenSource cancellationTokenSource)
         {
             try
-            {
+            {                
                 UpdateApplicationSettings();
                 _loadingScreenController.Show();
                 InitializeServices();
@@ -40,27 +42,29 @@ namespace IpegamaGames
             }
             catch (OperationCanceledException)
             {
-                Debug.Log("Operation init core was cancelled");
+                LogService.Log("Operation init core was cancelled");
             }
             catch (Exception e)
             {
-                Debug.LogError(e.Message);
+                LogService.LogError(e.Message);
                 throw;
             }
-
             _loadingScreenController.Hide();
         }
+
         private void UpdateApplicationSettings()
         {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             Application.targetFrameRate = 60;
         }
+
         private void InitializeServices()
         {
             //_gameInputActions.Enable();
             _audioService.InitEntryPoint();
             _sceneLoaderService.InitEntryPoint();
         }
+
         private async Awaitable LoadGameScene(CancellationTokenSource cancellationTokenSource)
         {
             await _sceneLoaderService.TryLoadScene(SceneType.GameScene, new GameInitiatorEnterData(), cancellationTokenSource);
