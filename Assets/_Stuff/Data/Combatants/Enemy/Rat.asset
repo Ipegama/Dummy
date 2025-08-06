@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c681aff4d307d4688cf979089338b7, type: 3}
   m_Name: Rat
   m_EditorClassIdentifier: 
-  EnemyName: 
+  EnemyName: Rat
   CardDatas:
   - {fileID: 11400000, guid: bb05f70d83369b44db37f7d2652b83b7, type: 2}
   - {fileID: 0}

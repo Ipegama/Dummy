@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0017376aafa000442bddc0344c4b0402, type: 3}
-  m_Name: Player 1
+  m_Name: Player The Mage
   m_EditorClassIdentifier: 
-  PlayerName: 'P2 '
+  PlayerName: Player The Mage
   CardDatas:
-  - {fileID: 11400000, guid: bb05f70d83369b44db37f7d2652b83b7, type: 2}
-  - {fileID: 11400000, guid: bb05f70d83369b44db37f7d2652b83b7, type: 2}
+  - {fileID: 11400000, guid: 667e25b47637c474fb32f0ccc156fe36, type: 2}
+  - {fileID: 11400000, guid: ed0371667e9485d4abdb54dda4eb4d23, type: 2}
   BaseHealth: 10
   Sprite: {fileID: 21300000, guid: 12032a4eee02e4c4682bf0c20194d48b, type: 3}

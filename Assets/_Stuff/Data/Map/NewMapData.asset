@@ -24,7 +24,7 @@ MonoBehaviour:
     enemyData: {fileID: 11400000, guid: be9f747e183343e41b5f497b7f9985ae, type: 2}
   - position: {x: 1, y: 0}
     isInitiallyUnlocked: 0
-    enemyData: {fileID: 0}
+    enemyData: {fileID: 11400000, guid: 6e73528ef0af86e44b9228381eab32a8, type: 2}
   - position: {x: -1, y: 0}
     isInitiallyUnlocked: 0
     enemyData: {fileID: 0}

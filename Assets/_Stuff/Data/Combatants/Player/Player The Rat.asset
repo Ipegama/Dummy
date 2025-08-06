@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57c681aff4d307d4688cf979089338b7, type: 3}
-  m_Name: Big Rat
+  m_Script: {fileID: 11500000, guid: 0017376aafa000442bddc0344c4b0402, type: 3}
+  m_Name: Player The Rat
   m_EditorClassIdentifier: 
-  EnemyName: Big Rat
+  PlayerName: Player The Rat
   CardDatas:
   - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 11400000, guid: bb05f70d83369b44db37f7d2652b83b7, type: 2}
-  BaseHealth: 5
-  Sprite: {fileID: 21300000, guid: 1fe89d58eb245441187dabad7c33096f, type: 3}
+  BaseHealth: 10
+  Sprite: {fileID: 21300000, guid: 12032a4eee02e4c4682bf0c20194d48b, type: 3}

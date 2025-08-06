@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public abstract class Combatant : MonoBehaviour
 {
-    protected int baseHealth;
+    public virtual int BaseHealth { get; set; }
     [SerializeField] TMP_Text hpText;
     [SerializeField] Image combatantImage;
     [SerializeField] StatusEffectsUI statusEffectsUI;
@@ -27,7 +27,7 @@ public abstract class Combatant : MonoBehaviour
     }
     public void UpdateUI()
     {
-        hpText.text = $"{CurrentHealth}/{baseHealth}";
+        hpText.text = $"{CurrentHealth}/{BaseHealth}";
     }
     public void TakeDamage(int amount)
     {

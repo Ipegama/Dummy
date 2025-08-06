@@ -1358,8 +1358,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandManager
   hand:
-  - {fileID: 11400000, guid: 47509c03d517d4e469f730a04f01aee9, type: 2}
+  - {fileID: 11400000, guid: 975f2e2d192003c498f924956454655a, type: 2}
   - {fileID: 11400000, guid: f1a4b570cf4e8834380a4b9aea934fa3, type: 2}
+  - {fileID: 11400000, guid: 47509c03d517d4e469f730a04f01aee9, type: 2}
+  - {fileID: 11400000, guid: f6259fc8d7fdf204c9f7aac03fa911b5, type: 2}
+  - {fileID: 11400000, guid: 1c573ce3cc36e984386febce169380d9, type: 2}
 --- !u!4 &1411812858
 Transform:
   m_ObjectHideFlags: 0

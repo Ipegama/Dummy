@@ -6,8 +6,8 @@ public class Player : Combatant
 {
     public void Initialize(int baseHp)
     {
-        baseHealth = baseHp;
-        CurrentHealth = baseHealth;
+        BaseHealth = baseHp;
+        CurrentHealth = BaseHealth;
         UpdateUI();
     }
 

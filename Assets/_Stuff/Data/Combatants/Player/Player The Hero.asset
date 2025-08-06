@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0017376aafa000442bddc0344c4b0402, type: 3}
-  m_Name: Player
+  m_Name: Player The Hero
   m_EditorClassIdentifier: 
-  PlayerName: P1
+  PlayerName: Player The Hero
   CardDatas:
-  - {fileID: 11400000, guid: 85542d17019f77b4990ee76e8519a2c4, type: 2}
-  - {fileID: 11400000, guid: 9845605e795626840a9bad324ca0ae87, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 2fc360781d762ce44b4ef430d9423a2d, type: 2}
   BaseHealth: 10
-  Sprite: {fileID: 21300000, guid: f6f5119ed3b4a43f98357ff47dcc0ea4, type: 3}
+  Sprite: {fileID: 21300000, guid: 12032a4eee02e4c4682bf0c20194d48b, type: 3}

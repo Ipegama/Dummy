@@ -8,8 +8,8 @@ public class Enemy : Combatant
     public void Setup(EnemyData enemyData)
     {
         EnemyData = enemyData;
-        baseHealth = enemyData.BaseHealth;
-        CurrentHealth = baseHealth;
+        BaseHealth = enemyData.BaseHealth;
+        CurrentHealth = BaseHealth;
         SetupUI(enemyData.Sprite);
         UpdateUI();
     }
