@@ -16,4 +16,11 @@ public class Player : Combatant
         SetupUI(playerData.Sprite);
         UpdateUI();
     }
+
+    public void LevelUp(int newHp)
+    {
+        BaseHealth = newHp;
+        CurrentHealth = BaseHealth;
+        UpdateUI();
+    }
 }

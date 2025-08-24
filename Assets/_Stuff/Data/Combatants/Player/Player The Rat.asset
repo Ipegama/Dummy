@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerName: Player The Rat
   CardDatas:
-  - {fileID: 0}
   - {fileID: 11400000, guid: bb05f70d83369b44db37f7d2652b83b7, type: 2}
+  - {fileID: 0}
   BaseHealth: 10
-  Sprite: {fileID: 21300000, guid: 12032a4eee02e4c4682bf0c20194d48b, type: 3}
+  Sprite: {fileID: 2944269363418303288, guid: 857c604bc8aae7d43b04b6015cf162eb, type: 3}

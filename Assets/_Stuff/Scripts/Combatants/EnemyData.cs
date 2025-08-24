@@ -8,5 +8,6 @@ public class EnemyData : ScriptableObject
     public string EnemyName;
     public List<CardData> CardDatas;
     public int BaseHealth;
+    public int Exp;
     public Sprite Sprite;
 }

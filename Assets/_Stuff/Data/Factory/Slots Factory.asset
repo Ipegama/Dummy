@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Slots Factory
   m_EditorClassIdentifier: 
   slotPrefab: {fileID: -7251054837638122779, guid: 67623d1b0875c444688113ccfd9067e0, type: 3}
-  playerColor: {r: 0.7137255, g: 0.8862746, b: 0.6745098, a: 1}
-  enemyColor: {r: 0.8862746, g: 0.6745098, b: 0.6745098, a: 1}
+  playerColor: {r: 0, g: 0.72156864, b: 0.5803922, a: 1}
+  enemyColor: {r: 1, g: 0.46274513, b: 0.45882356, a: 1}

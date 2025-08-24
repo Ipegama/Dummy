@@ -5,17 +5,12 @@ public class MapManager : Singleton<MapManager>
 {
     [SerializeField] private GameObject tilePrefab;
     [SerializeField] private Transform gridParent;
-    [SerializeField] private MapData mapData;
     [SerializeField] private float tileSize = 100f;
 
     private List<TileButton> spawnedTiles = new List<TileButton>();
 
-    void Start()
-    {
-        GenerateMap();
-    }
 
-    void GenerateMap()
+    public void GenerateMap(MapData mapData)
     {
         foreach (TileData tileData in mapData.tiles)
         {

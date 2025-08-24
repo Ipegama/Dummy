@@ -10,6 +10,7 @@ public class Board : Singleton<Board>
     [SerializeField] private Enemy enemy;
 
     [SerializeField] private SlotFactory slotsFactory;
+    [SerializeField] private AudioClip slotUseSound;
 
     private Coroutine fightCoroutine;
     private PlayerData usedBuild;
@@ -102,6 +103,8 @@ public class Board : Singleton<Board>
             {
                 var (owner, rival) = GetCombatantsForSlot(i);
 
+                SoundManager.Instance.PlaySound(slotUseSound);
+
                 yield return StartCoroutine(slots[i].UseSlot(owner, rival));
 
                 if (player.IsDead() || enemy.IsDead())
@@ -118,6 +121,8 @@ public class Board : Singleton<Board>
             MapManager.Instance.UnlockNeighbors(Combat.Instance.CurrentTile.X, Combat.Instance.CurrentTile.Y);
             HandManager.Instance.RemoveFromHand(usedBuild);
             QuestManager.Instance.EnemyDefeated(enemy.EnemyData);
+            PlayerLevelSystem.Instance.AddExp(enemy.EnemyData.Exp);
+            LockButtonsPanel.Instance.UnlockButtons();
         }
 
         FinalizeAndCloseFight();

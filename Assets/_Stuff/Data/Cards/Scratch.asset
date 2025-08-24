@@ -15,6 +15,6 @@ MonoBehaviour:
   cardPrefab: {fileID: 1083344922333567218, guid: 3ffcb886a96314f4d9559a2a923e1614, type: 3}
   cardName: Scratch
   cardDescription: Deal 1 damage.
-  cardIcon: {fileID: 21300000, guid: 72124a67bbace794fa38534a24d23cee, type: 3}
+  cardIcon: {fileID: -4358382413101003114, guid: 053be3505af483a4ab3ff4bb982b625b, type: 3}
   effects:
   - {fileID: 11400000, guid: da182646092054649978aa4df5a6e240, type: 2}

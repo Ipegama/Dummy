@@ -17,4 +17,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 85542d17019f77b4990ee76e8519a2c4, type: 2}
   - {fileID: 11400000, guid: 9845605e795626840a9bad324ca0ae87, type: 2}
   BaseHealth: 10
-  Sprite: {fileID: 21300000, guid: f6f5119ed3b4a43f98357ff47dcc0ea4, type: 3}
+  Sprite: {fileID: 2944269363418303288, guid: 857c604bc8aae7d43b04b6015cf162eb, type: 3}

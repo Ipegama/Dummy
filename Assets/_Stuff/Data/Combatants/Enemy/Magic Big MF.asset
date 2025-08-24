@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57c681aff4d307d4688cf979089338b7, type: 3}
+  m_Name: Magic Big MF
+  m_EditorClassIdentifier: 
+  EnemyName: Magic Big MF
+  CardDatas:
+  - {fileID: 11400000, guid: 667e25b47637c474fb32f0ccc156fe36, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 087ec0c2fa584a94a998904f00ddd50e, type: 2}
+  BaseHealth: 45
+  Exp: 3
+  Sprite: {fileID: 1694076405, guid: 9a3d4556634611947b27004fc8dfedc6, type: 3}

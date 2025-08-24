@@ -7,7 +7,6 @@ using UnityEngine;
 public class DealDamageEffect : Effect
 {
     public int amount;
-    public RectTransform explosionVFX;
     public AudioClip audioClip;
 
     public override IEnumerator Use(Combatant owner, Combatant rival)

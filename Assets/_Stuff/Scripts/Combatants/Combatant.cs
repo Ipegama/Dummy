@@ -11,6 +11,7 @@ public abstract class Combatant : MonoBehaviour
     [SerializeField] TMP_Text hpText;
     [SerializeField] Image combatantImage;
     [SerializeField] StatusEffectsUI statusEffectsUI;
+    [SerializeField] private DamagePopup damagePopup;
     public virtual int CurrentHealth { get;  set; }
     public Vector3 OriginalPosition { get; set; }
 
@@ -28,9 +29,23 @@ public abstract class Combatant : MonoBehaviour
     public void UpdateUI()
     {
         hpText.text = $"{CurrentHealth}/{BaseHealth}";
+
+        hpText.transform.DOKill();
+
+        hpText.transform
+            .DOScale(1.3f, 0.15f) 
+            .SetEase(Ease.OutBack)
+            .OnComplete(() =>
+            {
+                hpText.transform.DOScale(1f, 0.15f).SetEase(Ease.InBack);
+            });
     }
+
+
     public void TakeDamage(int amount)
     {
+        damagePopup.Show(amount);
+
         int remainingDamage = amount;
         int currentArmor = GetStatusEffectStacks(StatusEffectType.ARMOR);
         if (currentArmor > 0)
