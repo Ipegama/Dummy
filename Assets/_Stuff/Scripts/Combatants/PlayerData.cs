@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     public string PlayerName;
-    public List<CardData> CardDatas;
-    public int BaseHealth;
+    public List<CardData> CardDatas;    
     public Sprite Sprite;
 }

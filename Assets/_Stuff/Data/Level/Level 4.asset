@@ -16,4 +16,5 @@ MonoBehaviour:
   Hand:
   - {fileID: 11400000, guid: 47509c03d517d4e469f730a04f01aee9, type: 2}
   - {fileID: 11400000, guid: 1c573ce3cc36e984386febce169380d9, type: 2}
+  - {fileID: 11400000, guid: d026e55802b3b2348bee39011f7e765e, type: 2}
   Bounty: {fileID: 11400000, guid: be9f747e183343e41b5f497b7f9985ae, type: 2}

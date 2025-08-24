@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0017376aafa000442bddc0344c4b0402, type: 3}
+  m_Name: Player The Squire
+  m_EditorClassIdentifier: 
+  PlayerName: Player The Squire
+  CardDatas:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 299df2d188d759349a966dcba34efa90, type: 2}
+  Sprite: {fileID: 2944269363418303288, guid: 857c604bc8aae7d43b04b6015cf162eb, type: 3}
